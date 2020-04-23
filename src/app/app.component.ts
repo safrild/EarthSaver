@@ -6,12 +6,8 @@ import {FirebaseService} from './firebase.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit{
-  constructor(private firebaseService: FirebaseService) {}
+export class AppComponent implements OnInit {
+  constructor() {}
 
-  ngOnInit() {
-    this.firebaseService.addUser().then(data => {
-      console.log(data);
-    });
-  }
+  ngOnInit() { }
 }

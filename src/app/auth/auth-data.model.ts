@@ -1,5 +1,6 @@
-export interface  AuthData {
+export interface AuthData {
   email: string;
-  username: string;
-  hometown: string;
+  password: string;
+  // hometown: string;
 }
+// az authentikaciohoz szukseges adatok

@@ -1,5 +1,6 @@
 export interface User {
   email: string;
-  username: string;
+  password: string;
   hometown: string;
 }
+// minden, ami a User tablaban lesz

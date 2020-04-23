@@ -8,7 +8,7 @@ import {User} from './auth/user.model';
 export class FirebaseService {
   myUser: User = {
     email: 'valami@valamicske.hu',
-    username: 'user001',
+    password: 'kuki',
     hometown: 'Szeged',
   };
 
@@ -16,7 +16,16 @@ export class FirebaseService {
 
   }
 
-  addUser() {
-    return this.afs.collection('Users').add(this.myUser);
+  addUser(user: User) {
+    return this.afs.collection('Users').add(user);
+  }
+
+  /* get users
+  this.afs.collection<User>('Users').valueChanges();
+  erre subscribe-olni kell
+   */
+
+  getUsers() {
+    return this.afs.collection<User>('Users').valueChanges();
   }
 }
