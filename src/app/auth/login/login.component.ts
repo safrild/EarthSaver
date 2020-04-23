@@ -9,6 +9,8 @@ import { AuthService } from '../auth.service';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
+  correctEmail: boolean = true;
+  correctPsw: boolean = true;
 
   constructor(private authService: AuthService) { }
 
@@ -26,5 +28,16 @@ export class LoginComponent implements OnInit {
       email: this.loginForm.value.email,
       password: this.loginForm.value.password
     });
+    this.isCorrect();
+    if (!this.correctEmail || !this.correctPsw) {
+      this.loginForm.reset();
+    }
+  }
+
+  isCorrect() {
+    this.correctEmail = this.authService.correctMail === '';
+    console.log(this.correctEmail);
+    this.correctPsw = this.authService.correctPsw === '';
+    console.log(this.correctPsw);
   }
 }
