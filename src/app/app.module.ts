@@ -27,6 +27,7 @@ import { GroupsComponent } from './groups/groups.component';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from '../environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import {FeedService} from './feed/feed.service';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule
   ],
-  providers: [AuthService],
+  providers: [AuthService, FeedService],
   bootstrap: [AppComponent],
   entryComponents: [StopTrainingComponent]
 })

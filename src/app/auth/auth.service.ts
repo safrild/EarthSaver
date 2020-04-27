@@ -12,10 +12,6 @@ export class AuthService implements OnDestroy {
   authChange = new Subject<boolean>();
   private user: User;
   subs: Subscription;
-  /*authCheck = ({
-    correctMail: true,
-    correctPsw: true
-  });*/
   correctMail: string = '';
   correctPsw: string = '';
 
@@ -26,7 +22,7 @@ export class AuthService implements OnDestroy {
     this.subs = this.firebaseService.getUsers().subscribe(data => {
       for (const user of data) {
         if (user.email === authData.email) {
-          this.correctMail = 'nem jo az imeled tesokam';
+          this.correctMail = 'Helytelen e-mail cim';
         }
       }
       if (this.correctMail === '') {
@@ -38,13 +34,12 @@ export class AuthService implements OnDestroy {
 
         this.firebaseService.addUser(this.user);
         this.authChange.next(true);
-        this.router.navigate(['/training']);
+        this.router.navigate(['/feed']);
       }
     });
   }
 
   login(authData: AuthData) {
-    // TODO : letezik-e a User egyaltalan
     this.subs = this.firebaseService.getUsers().subscribe(data => {
       for (const user of data) {
         if (user.email === authData.email) {
@@ -55,13 +50,14 @@ export class AuthService implements OnDestroy {
               hometown: 'vmi'
             };
             this.authChange.next(true);
-            this.router.navigate(['/training']);
+            this.router.navigate(['/feed']);
             break;
           } else if (user.email === authData.email && user.password !== authData.password ) {
-            this.correctPsw = 'Helytelen jelszó';
+            this.correctPsw = 'Helytelen jelszo';
           }
+        } else {
+          this.correctMail = 'Helytelen e-mail cim';
         }
-        console.log(this.correctMail);
       }
     });
   }
@@ -69,7 +65,7 @@ export class AuthService implements OnDestroy {
   logout() {
     this.user = null;
     this.authChange.next(false);
-    this.router.navigate(['/login']);
+    this.router.navigate(['/']); // vissza a welcome componentre
   }
 
   getUser() {

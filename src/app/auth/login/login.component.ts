@@ -36,8 +36,6 @@ export class LoginComponent implements OnInit {
 
   isCorrect() {
     this.correctEmail = this.authService.correctMail === '';
-    console.log(this.correctEmail);
     this.correctPsw = this.authService.correctPsw === '';
-    console.log(this.correctPsw);
   }
 }

@@ -1,1 +1,20 @@
-<p>postwriter works!</p>
+<section>
+  <form
+    fxLayout="column"
+    fxLayoutAlign="center center"
+    fxFlexAlig="auto"
+    fxLayoutGap="20px"
+    fxLayoutGap.lt-md="20px"
+    [formGroup]="postForm"
+    (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="outline" style="width:700px">
+      <input
+        type="text"
+        matInput
+        placeholder="Write something..."
+        formControlName="post">
+      <mat-hint>What's on your mind?</mat-hint>
+    </mat-form-field>
+    <button type="submit" mat-raised-button color="primary" [disabled]="postForm.invalid">Share</button>
+  </form>
+</section>
