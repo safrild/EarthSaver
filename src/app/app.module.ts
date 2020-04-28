@@ -20,7 +20,6 @@ import { StopTrainingComponent } from './training/current-training/stop-training
 import { AuthService } from './auth/auth.service';
 import { FeedComponent } from './feed/feed.component';
 import { PostwriterComponent } from './feed/postwriter/postwriter.component';
-import { PostComponent } from './feed/post/post.component';
 import { ProfileComponent } from './profile/profile.component';
 import { GroupsComponent } from './groups/groups.component';
 
@@ -28,6 +27,7 @@ import { AngularFireModule } from '@angular/fire';
 import { environment } from '../environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import {FeedService} from './feed/feed.service';
+import {MatTableModule} from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -44,7 +44,6 @@ import {FeedService} from './feed/feed.service';
     StopTrainingComponent,
     FeedComponent,
     PostwriterComponent,
-    PostComponent,
     ProfileComponent,
     GroupsComponent
   ],
@@ -57,7 +56,8 @@ import {FeedService} from './feed/feed.service';
     FormsModule,
     ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    MatTableModule
   ],
   providers: [AuthService, FeedService],
   bootstrap: [AppComponent],

@@ -1,7 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {FeedService} from '../feed.service';
 import {AuthService} from '../../auth/auth.service';
+import {Post} from '../post.model';
 
 @Component({
   selector: 'app-postwriter',
@@ -27,6 +28,10 @@ export class PostwriterComponent implements OnInit {
       username: this.authService.getUser().email,
       text: this.postForm.value.post
     });
+    this.postForm.reset();
+    // TODO: uzenet a sikeres poszt megosztasrol
   }
+
+
 
 }

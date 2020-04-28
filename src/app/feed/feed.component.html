@@ -1,3 +1,9 @@
 <h1 fxLayoutAlign="center center">News feed</h1>
 <app-postwriter></app-postwriter>
-<app-post></app-post>
+<table>
+  <tr *ngFor="let post of this.posts.slice().reverse()">
+    <th>{{post.username}}</th>
+    <td>{{post.text}}</td>
+  </tr>
+</table>
+

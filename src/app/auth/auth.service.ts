@@ -15,7 +15,7 @@ export class AuthService implements OnDestroy {
   correctMail: string = '';
   correctPsw: string = '';
 
-  constructor(private router: Router, private firebaseService: FirebaseService) {
+  constructor(public router: Router, private firebaseService: FirebaseService) {
   }
 
   registerUser(authData: AuthData) {

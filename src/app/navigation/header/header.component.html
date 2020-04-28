@@ -16,11 +16,12 @@
         <a routerLink="/login">Login</a>
       </li>
       <li *ngIf="isAuth">
-        <a routerLink="/training">Training</a>
+        <a routerLink="/feed">Feed</a>
       </li>
       <li *ngIf="isAuth">
         <a (click)="logout()">Logout</a>
       </li>
+
     </ul>
   </div>
 </mat-toolbar>
