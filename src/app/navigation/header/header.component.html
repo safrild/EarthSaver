@@ -19,6 +19,9 @@
         <a routerLink="/feed">Feed</a>
       </li>
       <li *ngIf="isAuth">
+        <a routerLink="/groups">Groups</a>
+      </li>
+      <li *ngIf="isAuth">
         <a (click)="logout()">Logout</a>
       </li>
 

@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {User} from './auth/user.model';
 import {Post} from './feed/post.model';
 import {Observable} from 'rxjs/Observable';
-import {take} from 'rxjs/operators';
+import {Group} from './groups/group.model';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +26,14 @@ export class FirebaseService {
   }
 
   getPosts(): Observable<any> {
-    console.log('firebaseservice getPosts()');
     return this.afs.collection<Post>('Posts').valueChanges();
+  }
+
+  getGroups() {
+    return this.afs.collection<Group>('Groups').valueChanges();
+  }
+
+  addGroup(group: Group) {
+    return this.afs.collection('Groups').add(group);
   }
 }

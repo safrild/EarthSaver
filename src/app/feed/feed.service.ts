@@ -1,7 +1,6 @@
 import {Router} from '@angular/router';
 import {Injectable, OnDestroy} from '@angular/core';
 import {FirebaseService} from '../firebase.service';
-import {Subscription} from 'rxjs/Subscription';
 import {PostData} from './post-data.model';
 import {Post} from './post.model';
 

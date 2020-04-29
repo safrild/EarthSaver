@@ -1,9 +1,15 @@
 <h1 fxLayoutAlign="center center">News feed</h1>
 <app-postwriter></app-postwriter>
-<table>
-  <tr *ngFor="let post of this.posts.slice().reverse()">
-    <th>{{post.username}}</th>
-    <td>{{post.text}}</td>
-  </tr>
-</table>
+<br>
+<div>
+  <mat-card class="card" *ngFor="let post of this.posts">
+    <mat-card-header class="card-header">
+      <mat-card-title class="card-header-title">{{post.username}}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="card-content">
+      {{post.text}}
+    </mat-card-content>
+  </mat-card>
+</div>
+
 

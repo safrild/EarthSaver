@@ -1,1 +1,41 @@
-<p>groups works!</p>
+<h1 fxLayoutAlign="center center">Groups</h1>
+
+
+<section>
+  <form
+    fxLayout="column"
+    fxLayoutAlign="center center"
+    fxFlexAlig="auto"
+    fxLayoutGap="20px"
+    fxLayoutGap.lt-md="20px"
+    [formGroup]="groupForm"
+    (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="outline" style="width:800px">
+      <input
+        type="text"
+        matInput
+        placeholder="Group name"
+        formControlName="name">
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        type="text"
+        matInput
+        placeholder="Group description"
+        formControlName="description">
+    </mat-form-field>
+    <button type="submit" mat-raised-button color="primary" [disabled]="groupForm.invalid">Create group</button>
+  </form>
+</section>
+
+
+<div>
+  <mat-card class="card" *ngFor="let group of this.groups">
+    <mat-card-header class="card-header">
+      <mat-card-title class="card-header-title">{{group.name}}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="card-content">
+      {{group.description}}
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -28,16 +28,12 @@ export class FeedComponent implements OnInit, OnDestroy {
   }
 
   getPosts() {
-    console.log('getPosts() lefutott feed');
-    console.log(this.posts);
     this.subs = this.firebaseService.getPosts().subscribe(data => {
       this.posts = [];
       for (const post of data) {
         this.posts.push(post);
-        console.log('pushed');
       }
     });
-    console.log(this.posts.length);
   }
 
 
@@ -45,7 +41,6 @@ export class FeedComponent implements OnInit, OnDestroy {
     this.authSubscription.unsubscribe();
     this.subs.unsubscribe();
     this.posts = [];
-    console.log('feed komponens ondestroy');
   }
 
 
