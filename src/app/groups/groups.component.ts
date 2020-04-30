@@ -18,6 +18,7 @@ export class GroupsComponent implements OnInit, OnDestroy {
   groups: Group[] = [];
   groupForm: FormGroup;
   private readonly notifier: NotifierService;
+  newgroup = false;
 
   constructor(private authService: AuthService, private firebaseService: FirebaseService, notifierService: NotifierService) {
     this.notifier = notifierService;
@@ -58,7 +59,6 @@ export class GroupsComponent implements OnInit, OnDestroy {
     this.firebaseService.addGroup(group);
   }
 
-
   onSubmit() {
     this.addGroup({
       id: Math.random().toString(36).substr(2, 9),
@@ -80,5 +80,7 @@ export class GroupsComponent implements OnInit, OnDestroy {
     this.subs.unsubscribe();
   }
 
-
+  newGroup() {
+    this.newgroup = true;
+  }
 }

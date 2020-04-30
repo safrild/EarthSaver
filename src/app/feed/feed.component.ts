@@ -1,4 +1,4 @@
-import {Component, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AuthService} from '../auth/auth.service';
 import {Subscription} from 'rxjs/Subscription';
 import {FeedService} from './feed.service';
@@ -36,13 +36,11 @@ export class FeedComponent implements OnInit, OnDestroy {
     });
   }
 
-
   ngOnDestroy() {
     this.authSubscription.unsubscribe();
     this.subs.unsubscribe();
     this.posts = [];
   }
-
 
 }
 

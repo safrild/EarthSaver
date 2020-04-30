@@ -1,48 +1,51 @@
 <h1 fxLayoutAlign="center center">Groups</h1>
 
+<div class="container">
+  <button fxLayoutAlign="center center" type="submit" class="groupbutton" (click)="newGroup()" mat-raised-button color="primary">Create a new group
+  </button>
 
-<section>
-  <form
-    fxLayout="column"
-    fxLayoutAlign="space-evenly center"
-    fxLayoutGap="20px"
-    fxLayoutGap.lt-md="20px"
-    [formGroup]="groupForm"
-    (ngSubmit)="onSubmit()">
-    <mat-form-field appearance="outline" style="width:800px">
-      <input
-        type="text"
-        matInput
-        placeholder="Group name"
-        formControlName="name">
-    </mat-form-field>
-    <mat-form-field appearance="outline" style="width:800px">
-      <input
-        type="text"
-        matInput
-        placeholder="Group description"
-        formControlName="description">
-    </mat-form-field>
-    <button type="submit" mat-raised-button color="primary" [disabled]="groupForm.invalid">Create group</button>
-  </form>
-  <notifier-container id="addGroupNoti">
-  </notifier-container>
-</section>
-<br>
+  <section *ngIf="newgroup">
+    <form
+      fxLayout="column"
+      fxLayoutAlign="space-evenly center"
+      fxLayoutGap="20px"
+      fxLayoutGap.lt-md="20px"
+      [formGroup]="groupForm"
+      (ngSubmit)="onSubmit()">
+      <mat-form-field appearance="outline" style="width:800px">
+        <input
+          type="text"
+          matInput
+          placeholder="Group name"
+          formControlName="name">
+      </mat-form-field>
+      <mat-form-field appearance="outline" style="width:800px">
+        <input
+          type="text"
+          matInput
+          placeholder="Group description"
+          formControlName="description">
+      </mat-form-field>
+      <button type="submit" mat-raised-button color="primary" [disabled]="groupForm.invalid">Create group</button>
+    </form>
+    <notifier-container id="addGroupNoti">
+    </notifier-container>
+  </section>
+  <br>
 
-
-<div>
-  <mat-card class="card" *ngFor="let group of this.groups">
-    <mat-card-header class="card-header">
-      <mat-card-title class="card-header-title">{{group.name}}</mat-card-title>
-    </mat-card-header>
-    <mat-card-content class="card-content">
-      {{group.description}}
-    </mat-card-content>
-    <button (click)="onJoin(group)" mat-raised-button color="primary">
-      Join group
-    </button>
-  </mat-card>
-  <notifier-container id="joinGroupNoti">
-  </notifier-container>
+  <div>
+    <mat-card class="card" *ngFor="let group of this.groups">
+      <mat-card-header class="card-header">
+        <mat-card-title class="card-header-title">{{group.name}}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="card-content">
+        {{group.description}}
+      </mat-card-content>
+      <button (click)="onJoin(group)" mat-raised-button color="primary">
+        Join group
+      </button>
+    </mat-card>
+    <notifier-container id="joinGroupNoti">
+    </notifier-container>
+  </div>
 </div>

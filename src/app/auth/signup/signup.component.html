@@ -13,6 +13,6 @@
     <mat-checkbox ngModel name="agree" required color="primary">Agree to Terms and Conditions.</mat-checkbox>
     <button type="submit" mat-raised-button color="primary" [disabled]="f.invalid">Submit</button>
     <p *ngIf="!correctEmail">Ezzel az e-mail címmel már regisztráltak!</p>
+    <notifier-container id="registerNoti"></notifier-container>
   </form>
-
 </section>

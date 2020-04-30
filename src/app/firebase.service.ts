@@ -5,6 +5,7 @@ import {Post} from './feed/post.model';
 import {Observable} from 'rxjs/Observable';
 import {Group} from './groups/group.model';
 import * as firebase from 'firebase';
+import {Profile} from './profile/profile.model';
 
 @Injectable({
   providedIn: 'root'
@@ -45,6 +46,14 @@ export class FirebaseService {
       posts: group.posts,
       users: firebase.firestore.FieldValue.arrayUnion(email)
     }, {merge: true});
+  }
+
+  getProfiles() {
+    return this.afs.collection<Profile>('Profiles').valueChanges();
+  }
+
+  addProfile(profile: Profile) {
+    return this.afs.collection('Profiles').doc(profile.id).set(profile);
   }
 
 }

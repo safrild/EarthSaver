@@ -1,1 +1,27 @@
-<p>profile works!</p>
+<h1 fxLayoutAlign="center center">Your profile</h1>
+<section>
+<!--  <button>Update your profile</button>-->
+  <form
+    fxLayout="column"
+    fxLayoutAlign="space-evenly center"
+    fxLayoutGap="20px"
+    fxLayoutGap.lt-md="20px"
+    [formGroup]="profileForm"
+    (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="outline" style="width:800px">
+      <input
+        type="text"
+        matInput
+        placeholder="Biography"
+        formControlName="bio">
+    </mat-form-field>
+    <mat-form-field appearance="outline" style="width:800px">
+      <input
+        type="number"
+        matInput
+        placeholder="Your age"
+        formControlName="age">
+    </mat-form-field>
+    <button type="submit" mat-raised-button color="primary" [disabled]="profileForm.invalid">Update profile</button>
+  </form>
+</section>
