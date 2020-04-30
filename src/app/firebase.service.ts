@@ -4,6 +4,7 @@ import {User} from './auth/user.model';
 import {Post} from './feed/post.model';
 import {Observable} from 'rxjs/Observable';
 import {Group} from './groups/group.model';
+import * as firebase from 'firebase';
 
 @Injectable({
   providedIn: 'root'
@@ -34,6 +35,16 @@ export class FirebaseService {
   }
 
   addGroup(group: Group) {
-    return this.afs.collection('Groups').add(group);
+    return this.afs.collection('Groups').doc(group.id).set(group);
   }
+
+  update(group: Group, email: string) {
+    return this.afs.collection('Groups').doc(group.id).set({
+      name: group.name,
+      description: group.description,
+      posts: group.posts,
+      users: firebase.firestore.FieldValue.arrayUnion(email)
+    }, {merge: true});
+  }
+
 }

@@ -4,6 +4,7 @@ import {Subscription} from 'rxjs/Subscription';
 import {Group} from './group.model';
 import {AuthService} from '../auth/auth.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {NotifierService} from 'angular-notifier';
 
 @Component({
   selector: 'app-groups',
@@ -16,8 +17,10 @@ export class GroupsComponent implements OnInit, OnDestroy {
   authSubscription: Subscription;
   groups: Group[] = [];
   groupForm: FormGroup;
+  private readonly notifier: NotifierService;
 
-  constructor(private authService: AuthService, private firebaseService: FirebaseService) {
+  constructor(private authService: AuthService, private firebaseService: FirebaseService, notifierService: NotifierService) {
+    this.notifier = notifierService;
   }
 
   ngOnInit() {
@@ -46,6 +49,7 @@ export class GroupsComponent implements OnInit, OnDestroy {
 
   addGroup(groupdata: Group) {
     const group: Group = {
+      id: Math.random().toString(36).substr(2, 9),
       name: groupdata.name,
       description: groupdata.description,
       users: groupdata.users,
@@ -54,23 +58,26 @@ export class GroupsComponent implements OnInit, OnDestroy {
     this.firebaseService.addGroup(group);
   }
 
-  ngOnDestroy() {
-    this.subs.unsubscribe();
-  }
-
-  logout() {
-    this.authService.logout();
-  }
 
   onSubmit() {
     this.addGroup({
+      id: Math.random().toString(36).substr(2, 9),
       name: this.groupForm.value.name,
       description: this.groupForm.value.description,
-      users: ['A', 'B'],
-      posts: ['Poszt1', 'Poszt2', 'Poszt3']
+      users: [],
+      posts: []
     });
     this.groupForm.reset();
-    // TODO: uzenet a sikeres csoport letrehozasrol
+    this.notifier.notify('Success', 'Group added successfully', 'addGroupNoti');
+  }
+
+  onJoin(group: Group) {
+    this.firebaseService.update(group, this.authService.getUser().email);
+    this.notifier.notify('Success', 'You joined the group', 'joinGroupNoti');
+  }
+
+  ngOnDestroy() {
+    this.subs.unsubscribe();
   }
 
 

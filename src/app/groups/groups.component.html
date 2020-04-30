@@ -4,8 +4,7 @@
 <section>
   <form
     fxLayout="column"
-    fxLayoutAlign="center center"
-    fxFlexAlig="auto"
+    fxLayoutAlign="space-evenly center"
     fxLayoutGap="20px"
     fxLayoutGap.lt-md="20px"
     [formGroup]="groupForm"
@@ -17,7 +16,7 @@
         placeholder="Group name"
         formControlName="name">
     </mat-form-field>
-    <mat-form-field>
+    <mat-form-field appearance="outline" style="width:800px">
       <input
         type="text"
         matInput
@@ -26,7 +25,10 @@
     </mat-form-field>
     <button type="submit" mat-raised-button color="primary" [disabled]="groupForm.invalid">Create group</button>
   </form>
+  <notifier-container id="addGroupNoti">
+  </notifier-container>
 </section>
+<br>
 
 
 <div>
@@ -37,5 +39,10 @@
     <mat-card-content class="card-content">
       {{group.description}}
     </mat-card-content>
+    <button (click)="onJoin(group)" mat-raised-button color="primary">
+      Join group
+    </button>
   </mat-card>
+  <notifier-container id="joinGroupNoti">
+  </notifier-container>
 </div>

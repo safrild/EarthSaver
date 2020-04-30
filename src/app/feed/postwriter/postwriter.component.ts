@@ -1,8 +1,8 @@
-import {Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {FeedService} from '../feed.service';
 import {AuthService} from '../../auth/auth.service';
-import {Post} from '../post.model';
+import {NotifierService} from 'angular-notifier';
 
 @Component({
   selector: 'app-postwriter',
@@ -11,8 +11,10 @@ import {Post} from '../post.model';
 })
 export class PostwriterComponent implements OnInit {
   postForm: FormGroup;
+  private readonly notifier: NotifierService;
 
-  constructor(private feedService: FeedService, private authService: AuthService) {
+  constructor(private feedService: FeedService, private authService: AuthService, notifierService: NotifierService) {
+    this.notifier = notifierService;
   }
 
   ngOnInit() {
@@ -29,9 +31,8 @@ export class PostwriterComponent implements OnInit {
       text: this.postForm.value.post
     });
     this.postForm.reset();
-    // TODO: uzenet a sikeres poszt megosztasrol
+    this.notifier.notify('Success', 'Your post has been shared.', 'postShareNoti');
   }
-
 
 
 }
