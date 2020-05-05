@@ -27,6 +27,7 @@ export class FeedComponent implements OnInit, OnDestroy {
     this.getPosts();
   }
 
+  // TODO: kattinthato posztok, profilmegtekintes innen
   getPosts() {
     this.subs = this.firebaseService.getPosts().subscribe(data => {
       this.posts = [];

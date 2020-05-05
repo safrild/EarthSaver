@@ -19,7 +19,5 @@ export class FeedService {
     this.firebaseService.addPost(post);
   }
 
-  // TODO: show posts
-
 
 }

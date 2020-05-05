@@ -19,6 +19,7 @@ export class GroupsComponent implements OnInit, OnDestroy {
   groupForm: FormGroup;
   private readonly notifier: NotifierService;
   newgroup = false;
+  mygroups: Group[] = [];
 
   constructor(private authService: AuthService, private firebaseService: FirebaseService, notifierService: NotifierService) {
     this.notifier = notifierService;
@@ -37,7 +38,10 @@ export class GroupsComponent implements OnInit, OnDestroy {
       })
     });
     this.getGroups();
+    this.getMyGroups();
   }
+
+  // TODO: kattinthato group-ok
 
   getGroups() {
     this.subs = this.firebaseService.getGroups().subscribe(data => {
@@ -47,6 +51,20 @@ export class GroupsComponent implements OnInit, OnDestroy {
       }
     });
   }
+
+  // TODO: ez jelenleg ugy szar, ahogy van
+  async getMyGroups() {
+    await this.getGroups();
+    console.log(this.groups);
+    for (const g of this.groups) {
+      console.log(this.authService.getUser().email);
+      if (g.users.indexOf(this.authService.getUser().email) >= 1) {
+        this.mygroups.push(g);
+      }
+    }
+    console.log(this.mygroups);
+  }
+  // TODO: csoportonkenti posztok kulon kiirasa
 
   addGroup(groupdata: Group) {
     const group: Group = {
@@ -71,6 +89,7 @@ export class GroupsComponent implements OnInit, OnDestroy {
     this.notifier.notify('Success', 'Group added successfully', 'addGroupNoti');
   }
 
+  // TODO: disabled a join gomb, ha mar benne vagy a csoportban
   onJoin(group: Group) {
     this.firebaseService.update(group, this.authService.getUser().email);
     this.notifier.notify('Success', 'You joined the group', 'joinGroupNoti');

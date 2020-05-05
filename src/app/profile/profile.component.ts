@@ -14,6 +14,8 @@ export class ProfileComponent implements OnInit {
   subs: Subscription;
   profiles: Profile[];
 
+  // TODO: MINDEN
+
   constructor(private firebaseService: FirebaseService) {
   }
 

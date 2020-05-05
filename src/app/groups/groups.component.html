@@ -27,6 +27,7 @@
           formControlName="description">
       </mat-form-field>
       <button type="submit" mat-raised-button color="primary" [disabled]="groupForm.invalid">Create group</button>
+      <button (click)="this.newgroup=false;" mat-raised-button color="warn">Cancel</button>
     </form>
     <notifier-container id="addGroupNoti">
     </notifier-container>
@@ -34,6 +35,8 @@
   <br>
 
   <div>
+    <notifier-container id="joinGroupNoti">
+    </notifier-container>
     <mat-card class="card" *ngFor="let group of this.groups">
       <mat-card-header class="card-header">
         <mat-card-title class="card-header-title">{{group.name}}</mat-card-title>
@@ -45,7 +48,5 @@
         Join group
       </button>
     </mat-card>
-    <notifier-container id="joinGroupNoti">
-    </notifier-container>
   </div>
 </div>
