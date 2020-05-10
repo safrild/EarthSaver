@@ -24,6 +24,7 @@ import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {FeedService} from './feed/feed.service';
 import {MatCardModule, MatTableModule} from '@angular/material';
 import {NotifierModule} from 'angular-notifier';
+import { GroupComponent } from './groups/group/group.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import {NotifierModule} from 'angular-notifier';
     FeedComponent,
     PostwriterComponent,
     ProfileComponent,
-    GroupsComponent
+    GroupsComponent,
+    GroupComponent
   ],
   imports: [
     BrowserModule,

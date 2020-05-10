@@ -1,7 +1,8 @@
 <h1 fxLayoutAlign="center center">Groups</h1>
 
 <div class="container">
-  <button fxLayoutAlign="center center" type="submit" class="groupbutton" (click)="newGroup()" mat-raised-button color="primary">Create a new group
+  <button fxLayoutAlign="center center" type="submit" class="groupbutton" (click)="newGroup()" mat-raised-button
+          color="primary">Create a new group
   </button>
 
   <section *ngIf="newgroup">
@@ -39,7 +40,9 @@
     </notifier-container>
     <mat-card class="card" *ngFor="let group of this.groups">
       <mat-card-header class="card-header">
-        <mat-card-title class="card-header-title">{{group.name}}</mat-card-title>
+        <button mat-raised-button color="primary" (click)="navigate(group)">
+          <mat-card-title  class="card-header-title">{{group.name}}</mat-card-title>
+        </button>
       </mat-card-header>
       <mat-card-content class="card-content">
         {{group.description}}
@@ -50,3 +53,4 @@
     </mat-card>
   </div>
 </div>
+

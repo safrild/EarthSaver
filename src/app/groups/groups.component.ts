@@ -1,10 +1,12 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {FirebaseService} from '../firebase.service';
 import {Subscription} from 'rxjs/Subscription';
 import {Group} from './group.model';
 import {AuthService} from '../auth/auth.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {NotifierService} from 'angular-notifier';
+import {GroupsService} from './groups.service';
+import {Router} from '@angular/router';
+import {FirebaseService} from '../firebase.service';
 
 @Component({
   selector: 'app-groups',
@@ -20,8 +22,10 @@ export class GroupsComponent implements OnInit, OnDestroy {
   private readonly notifier: NotifierService;
   newgroup = false;
   mygroups: Group[] = [];
+  groupToOpen: Group;
 
-  constructor(private authService: AuthService, private firebaseService: FirebaseService, notifierService: NotifierService) {
+  constructor(private authService: AuthService, private groupService: GroupsService, notifierService: NotifierService,
+              public router: Router, private firebaseService: FirebaseService) {
     this.notifier = notifierService;
   }
 
@@ -41,8 +45,6 @@ export class GroupsComponent implements OnInit, OnDestroy {
     this.getMyGroups();
   }
 
-  // TODO: kattinthato group-ok
-
   getGroups() {
     this.subs = this.firebaseService.getGroups().subscribe(data => {
       this.groups = [];
@@ -55,30 +57,20 @@ export class GroupsComponent implements OnInit, OnDestroy {
   // TODO: ez jelenleg ugy szar, ahogy van
   async getMyGroups() {
     await this.getGroups();
-    console.log(this.groups);
     for (const g of this.groups) {
       console.log(this.authService.getUser().email);
       if (g.users.indexOf(this.authService.getUser().email) >= 1) {
         this.mygroups.push(g);
       }
     }
-    console.log(this.mygroups);
   }
+
   // TODO: csoportonkenti posztok kulon kiirasa
 
-  addGroup(groupdata: Group) {
-    const group: Group = {
-      id: Math.random().toString(36).substr(2, 9),
-      name: groupdata.name,
-      description: groupdata.description,
-      users: groupdata.users,
-      posts: groupdata.posts
-    };
-    this.firebaseService.addGroup(group);
-  }
+
 
   onSubmit() {
-    this.addGroup({
+    this.groupService.addGroup({
       id: Math.random().toString(36).substr(2, 9),
       name: this.groupForm.value.name,
       description: this.groupForm.value.description,
@@ -89,17 +81,16 @@ export class GroupsComponent implements OnInit, OnDestroy {
     this.notifier.notify('Success', 'Group added successfully', 'addGroupNoti');
   }
 
-  // TODO: disabled a join gomb, ha mar benne vagy a csoportban
-  onJoin(group: Group) {
-    this.firebaseService.update(group, this.authService.getUser().email);
-    this.notifier.notify('Success', 'You joined the group', 'joinGroupNoti');
-  }
-
   ngOnDestroy() {
     this.subs.unsubscribe();
   }
 
   newGroup() {
     this.newgroup = true;
+  }
+
+  navigate(gto: Group) {
+    this.groupToOpen = gto;
+    this.router.navigate(['/group']);
   }
 }
