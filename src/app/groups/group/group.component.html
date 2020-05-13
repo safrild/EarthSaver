@@ -1,9 +1,43 @@
 <h1 fxLayoutAlign="center center">{{this.groupsService.groupToOpen.name}}</h1>
 <div>
 
+  <section>
+    <form
+      fxLayout="column"
+      fxLayoutAlign="center center"
+      fxFlexAlig="auto"
+      fxLayoutGap="20px"
+      fxLayoutGap.lt-md="20px"
+      [formGroup]="postForm"
+      (ngSubmit)="onSubmit()">
+      <mat-form-field appearance="outline" style="width:800px">
+        <input
+          type="text"
+          matInput
+          placeholder="Write something..."
+          formControlName="post">
+        <mat-hint>What's on your mind?</mat-hint>
+      </mat-form-field>
+      <button type="submit" mat-raised-button color="primary" [disabled]="postForm.invalid">Share</button>
+      <notifier-container>
+      </notifier-container>
+    </form>
+  </section>
+
   <mat-card class="card" *ngFor="let post of this.posts">
     <mat-card-content class="card-content">
       {{post}}
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="card">
+    <mat-card-header>
+      <mat-card-title class="card-header-title">
+        Tagok:
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="card-content" *ngFor="let member of thisgroup.users">
+      {{member}}
     </mat-card-content>
   </mat-card>
 </div>

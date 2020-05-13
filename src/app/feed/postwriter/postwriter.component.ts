@@ -31,7 +31,7 @@ export class PostwriterComponent implements OnInit {
       text: this.postForm.value.post
     });
     this.postForm.reset();
-    this.notifier.notify('Success', 'Your post has been shared.', 'postShareNoti');
+    this.notifier.notify('Success', 'Your post has been shared.');
   }
 
 

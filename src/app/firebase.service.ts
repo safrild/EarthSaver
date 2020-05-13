@@ -39,12 +39,21 @@ export class FirebaseService {
     return this.afs.collection('Groups').doc(group.id).set(group);
   }
 
-  update(group: Group, email: string) {
+  updateMail(group: Group, email: string) {
     return this.afs.collection('Groups').doc(group.id).set({
       name: group.name,
       description: group.description,
       posts: group.posts,
       users: firebase.firestore.FieldValue.arrayUnion(email)
+    }, {merge: true});
+  }
+
+  updatePosts(group: Group, post: string) {
+    return this.afs.collection('Groups').doc(group.id).set({
+      name: group.name,
+      description: group.description,
+      posts: firebase.firestore.FieldValue.arrayUnion(post),
+      users: group.users
     }, {merge: true});
   }
 

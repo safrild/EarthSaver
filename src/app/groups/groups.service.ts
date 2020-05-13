@@ -23,7 +23,7 @@ export class GroupsService {
 
   addGroup(groupdata: Group) {
     const group: Group = {
-      id: Math.random().toString(36).substr(2, 9),
+      id: groupdata.id,
       name: groupdata.name,
       description: groupdata.description,
       users: groupdata.users,
@@ -33,8 +33,8 @@ export class GroupsService {
   }
 
   onJoin(group: Group) {
-    this.firebaseService.update(group, this.authService.getUser().email);
-    this.notifier.notify('Success', 'You joined the group', 'joinGroupNoti');
+    this.firebaseService.updateMail(group, this.authService.getUser().email);
+    this.notifier.notify('Success', 'You joined the group');
   }
 
   navigate(gto: Group) {

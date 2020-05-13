@@ -28,26 +28,32 @@
           formControlName="description">
       </mat-form-field>
       <button type="submit" mat-raised-button color="primary" [disabled]="groupForm.invalid">Create group</button>
-      <button (click)="this.newgroup=false;" mat-raised-button color="warn">Cancel</button>
+      <button (click)="this.newgroup = false;" mat-raised-button color="warn">Cancel</button>
+      <notifier-container>
+      </notifier-container>
     </form>
-    <notifier-container id="addGroupNoti">
-    </notifier-container>
   </section>
   <br>
 
+
   <div>
-    <notifier-container id="joinGroupNoti">
+    <notifier-container>
     </notifier-container>
     <mat-card class="card" *ngFor="let group of this.groups">
       <mat-card-header class="card-header">
-        <button class="btn" mat-raised-button color="primary" (click)="this.groupService.navigate(group)">
+        <button *ngIf="amIIn(group); else notAMember" class="btn" mat-raised-button color="primary"
+                (click)="this.groupService.navigate(group)">
           <mat-card-title class="card-header-title">{{group.name}}</mat-card-title>
         </button>
+        <ng-template #notAMember>
+          {{group.name}}
+        </ng-template>
       </mat-card-header>
       <mat-card-content class="card-content">
         {{group.description}}
       </mat-card-content>
-      <button *ngIf="!amIIn(group)" (click)="this.groupService.onJoin(group)" mat-raised-button color="primary">
+      <button *ngIf="!amIIn(group)" class="joinBtn" (click)="this.groupService.onJoin(group)" mat-raised-button
+              color="primary">
         Join group
       </button>
     </mat-card>

@@ -1,12 +1,18 @@
 .card {
   position: relative;
   background: #fff;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 7px;
+  margin: 20px auto 7px;
   max-width: 800px;
   border-radius: 20px;
 }
 .card:hover {
   box-shadow: 5px 4px 8px #888888;
+}
+
+.card-content {
+  font-size: 16px;
+}
+
+.card-header-title {
+  font-weight: bold;
 }

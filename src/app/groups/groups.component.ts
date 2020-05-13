@@ -20,7 +20,6 @@ export class GroupsComponent implements OnInit, OnDestroy {
   groupForm: FormGroup;
   private readonly notifier: NotifierService;
   newgroup = false;
-  mygroups: Group[] = [];
 
   constructor(private authService: AuthService, private groupService: GroupsService, notifierService: NotifierService,
               private firebaseService: FirebaseService) {
@@ -28,6 +27,7 @@ export class GroupsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.groups = [];
     this.authSubscription = this.authService.authChange.subscribe(authStatus => {
       this.isAuth = authStatus;
     });
@@ -51,7 +51,6 @@ export class GroupsComponent implements OnInit, OnDestroy {
     });
   }
 
-
   onSubmit() {
     this.groupService.addGroup({
       id: Math.random().toString(36).substr(2, 9),
@@ -61,11 +60,13 @@ export class GroupsComponent implements OnInit, OnDestroy {
       posts: []
     });
     this.groupForm.reset();
-    this.notifier.notify('Success', 'Group added successfully', 'addGroupNoti');
+    this.notifier.notify('success', 'Group added successfully');
   }
 
   ngOnDestroy() {
     this.subs.unsubscribe();
+    this.authSubscription.unsubscribe();
+    this.groups = [];
   }
 
   newGroup() {

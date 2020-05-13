@@ -85,7 +85,6 @@ export class AuthService implements OnDestroy {
         for (const p of g.users) {
           if (p === this.getUser().email) {
             this.myGroups.push(g);
-            console.log(g);
           }
         }
       }

@@ -23,8 +23,29 @@ import {environment} from '../environments/environment';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {FeedService} from './feed/feed.service';
 import {MatCardModule, MatTableModule} from '@angular/material';
-import {NotifierModule} from 'angular-notifier';
-import { GroupComponent } from './groups/group/group.component';
+import {NotifierModule, NotifierOptions} from 'angular-notifier';
+import {GroupComponent} from './groups/group/group.component';
+
+const customNotifierOptions: NotifierOptions = {
+  position: {
+    horizontal: {
+      position: 'middle',
+      distance: 12
+    },
+    vertical: {
+      position: 'top',
+      distance: 12
+    }
+  },
+  theme: 'material',
+  behaviour: {
+    autoHide: 5000,
+    onClick: 'hide',
+    onMouseover: 'pauseAutoHide',
+    showDismissButton: true,
+    stacking: 4
+  },
+};
 
 @NgModule({
   declarations: [
@@ -52,10 +73,12 @@ import { GroupComponent } from './groups/group/group.component';
     AngularFirestoreModule,
     MatTableModule,
     MatCardModule,
-    NotifierModule
+    NotifierModule.withConfig(customNotifierOptions)
   ],
   providers: [AuthService, FeedService],
   bootstrap: [AppComponent],
 })
+
+
 export class AppModule {
 }
