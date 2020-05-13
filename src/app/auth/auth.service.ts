@@ -5,6 +5,7 @@ import {AuthData} from './auth-data.model';
 import {Subject} from 'rxjs/Subject';
 import {FirebaseService} from '../firebase.service';
 import {Subscription} from 'rxjs/Subscription';
+import {Group} from '../groups/group.model';
 
 @Injectable()
 export class AuthService implements OnDestroy {
@@ -14,6 +15,7 @@ export class AuthService implements OnDestroy {
   subs: Subscription;
   correctMail: string = '';
   correctPsw: string = '';
+  myGroups: Group[] = [];
 
   constructor(public router: Router, private firebaseService: FirebaseService) {
   }
@@ -52,7 +54,7 @@ export class AuthService implements OnDestroy {
             this.authChange.next(true);
             this.router.navigate(['/feed']);
             break;
-          } else if (user.email === authData.email && user.password !== authData.password ) {
+          } else if (user.email === authData.email && user.password !== authData.password) {
             this.correctPsw = 'Helytelen jelszo';
           }
         } else {
@@ -74,6 +76,20 @@ export class AuthService implements OnDestroy {
 
   isAuth() {
     return this.user != null;
+  }
+
+  getMyGroups() {
+    this.subs = this.firebaseService.getGroups().subscribe(data => {
+      this.myGroups = [];
+      for (const g of data) {
+        for (const p of g.users) {
+          if (p === this.getUser().email) {
+            this.myGroups.push(g);
+            console.log(g);
+          }
+        }
+      }
+    });
   }
 
   ngOnDestroy() {

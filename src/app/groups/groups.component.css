@@ -39,6 +39,11 @@
   margin-left: auto;
   margin-right: auto;
 }
+.btn {
+  height: 30px;
+  position: relative;
+  margin: auto;
+}
 
 #joinGroupNoti {
   position: relative;

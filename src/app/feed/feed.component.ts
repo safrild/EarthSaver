@@ -25,6 +25,7 @@ export class FeedComponent implements OnInit, OnDestroy {
       this.isAuth = authStatus;
     });
     this.getPosts();
+    this.authService.getMyGroups();
   }
 
   // TODO: kattinthato posztok, profilmegtekintes innen

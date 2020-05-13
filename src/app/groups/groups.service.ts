@@ -32,7 +32,6 @@ export class GroupsService {
     this.firebaseService.addGroup(group);
   }
 
-  // TODO: disabled a join gomb, ha mar benne vagy a csoportban
   onJoin(group: Group) {
     this.firebaseService.update(group, this.authService.getUser().email);
     this.notifier.notify('Success', 'You joined the group', 'joinGroupNoti');

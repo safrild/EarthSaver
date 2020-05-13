@@ -40,7 +40,6 @@ export class GroupsComponent implements OnInit, OnDestroy {
       })
     });
     this.getGroups();
-    this.getMyGroups();
   }
 
   getGroups() {
@@ -65,27 +64,15 @@ export class GroupsComponent implements OnInit, OnDestroy {
     this.notifier.notify('Success', 'Group added successfully', 'addGroupNoti');
   }
 
-  getMyGroups() {
-    this.subs = this.firebaseService.getGroups().subscribe(data => {
-      this.mygroups = [];
-      for (const g of data) {
-        for (const p of g.users) {
-          if (p === this.authService.getUser().email) {
-            this.mygroups.push(g);
-            console.log(g);
-          }
-        }
-      }
-    });
-  }
-
   ngOnDestroy() {
     this.subs.unsubscribe();
   }
 
   newGroup() {
     this.newgroup = true;
-    this.mygroups = [];
   }
 
+  amIIn(g: Group) {
+    return g.users.includes(this.authService.getUser().email);
+  }
 }
