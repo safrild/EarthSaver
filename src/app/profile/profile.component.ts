@@ -3,6 +3,9 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {FirebaseService} from '../firebase.service';
 import {Profile} from './profile.model';
 import {Subscription} from 'rxjs/Subscription';
+import {GroupsService} from '../groups/groups.service';
+import {FeedService} from '../feed/feed.service';
+import {AuthService} from '../auth/auth.service';
 
 @Component({
   selector: 'app-profile',
@@ -16,7 +19,8 @@ export class ProfileComponent implements OnInit {
 
   // TODO: MINDEN
 
-  constructor(private firebaseService: FirebaseService) {
+  constructor(private firebaseService: FirebaseService, private groupsService: GroupsService, private feedService: FeedService,
+              private authService: AuthService) {
   }
 
   ngOnInit() {
@@ -26,35 +30,38 @@ export class ProfileComponent implements OnInit {
       }),
       age: new FormControl('', {
         validators: [Validators.required]
+      }),
+      hobbies: new FormControl('', {
+        validators: [Validators.required]
       })
     });
     this.getProfiles();
   }
 
+  // TODO: csoportok es posztok hozzarakasa = KURVA szar
   addProfile(p: Profile) {
+    this.feedService.getMyPosts();
     const profile: Profile = {
-      id: Math.random().toString(36).substr(2, 9),
-      photo: 'asd.url.com.xd',
+      id: this.authService.getUser().email,
       bio: p.bio,
       age: p.age,
-      posts: [],
-      groups: []
+      hobbies: p.hobbies,
+      posts: this.feedService.myPosts,
+      groups: this.groupsService.myGroups
     };
     this.firebaseService.addProfile(profile);
   }
 
   onSubmit() {
     this.addProfile({
-      id: Math.random().toString(36).substr(2, 9),
-      photo: '',
+      id: '',
       bio: this.profileForm.value.bio,
       age: this.profileForm.value.age,
+      hobbies: this.profileForm.value.hobbies,
       posts: [],
       groups: []
     });
     this.profileForm.reset();
-    // this.notifier.notify('Success', 'Group added successfully', 'addGroupNoti');
-
   }
 
   getProfiles() {

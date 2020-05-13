@@ -1,8 +1,8 @@
 export interface Profile {
   id: string;
-  photo: string;
   bio: string;
   age: number;
+  hobbies: string;
   posts: any[];
   groups: any[];
 }

@@ -42,4 +42,6 @@ export class GroupsService {
     this.router.navigate(['/group']);
   }
 
+  // TODO: getMyGroups function es getMyPosts a profilhoz maybe IDE KENE
+
 }
