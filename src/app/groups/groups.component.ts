@@ -5,7 +5,6 @@ import {AuthService} from '../auth/auth.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {NotifierService} from 'angular-notifier';
 import {GroupsService} from './groups.service';
-import {Router} from '@angular/router';
 import {FirebaseService} from '../firebase.service';
 
 @Component({
@@ -22,10 +21,9 @@ export class GroupsComponent implements OnInit, OnDestroy {
   private readonly notifier: NotifierService;
   newgroup = false;
   mygroups: Group[] = [];
-  groupToOpen: Group;
 
   constructor(private authService: AuthService, private groupService: GroupsService, notifierService: NotifierService,
-              public router: Router, private firebaseService: FirebaseService) {
+              private firebaseService: FirebaseService) {
     this.notifier = notifierService;
   }
 
@@ -54,20 +52,6 @@ export class GroupsComponent implements OnInit, OnDestroy {
     });
   }
 
-  // TODO: ez jelenleg ugy szar, ahogy van
-  async getMyGroups() {
-    await this.getGroups();
-    for (const g of this.groups) {
-      console.log(this.authService.getUser().email);
-      if (g.users.indexOf(this.authService.getUser().email) >= 1) {
-        this.mygroups.push(g);
-      }
-    }
-  }
-
-  // TODO: csoportonkenti posztok kulon kiirasa
-
-
 
   onSubmit() {
     this.groupService.addGroup({
@@ -81,16 +65,27 @@ export class GroupsComponent implements OnInit, OnDestroy {
     this.notifier.notify('Success', 'Group added successfully', 'addGroupNoti');
   }
 
+  getMyGroups() {
+    this.subs = this.firebaseService.getGroups().subscribe(data => {
+      this.mygroups = [];
+      for (const g of data) {
+        for (const p of g.users) {
+          if (p === this.authService.getUser().email) {
+            this.mygroups.push(g);
+            console.log(g);
+          }
+        }
+      }
+    });
+  }
+
   ngOnDestroy() {
     this.subs.unsubscribe();
   }
 
   newGroup() {
     this.newgroup = true;
+    this.mygroups = [];
   }
 
-  navigate(gto: Group) {
-    this.groupToOpen = gto;
-    this.router.navigate(['/group']);
-  }
 }

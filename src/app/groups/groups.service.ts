@@ -4,20 +4,22 @@ import {Group} from './group.model';
 import {Subscription} from 'rxjs/Subscription';
 import {AuthService} from '../auth/auth.service';
 import {FirebaseService} from '../firebase.service';
+import {Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GroupsService {
-  subs: Subscription;
   groups: Group[] = [];
+  myGroups: Group[] = [];
   private readonly notifier: NotifierService;
+  groupToOpen: Group;
+  subs: Subscription;
 
-  constructor(private authService: AuthService, private firebaseService: FirebaseService, notifierService: NotifierService) {
+  constructor(private authService: AuthService, private firebaseService: FirebaseService, notifierService: NotifierService,
+              public router: Router) {
     this.notifier = notifierService;
   }
-
-
 
   addGroup(groupdata: Group) {
     const group: Group = {
@@ -34,6 +36,11 @@ export class GroupsService {
   onJoin(group: Group) {
     this.firebaseService.update(group, this.authService.getUser().email);
     this.notifier.notify('Success', 'You joined the group', 'joinGroupNoti');
+  }
+
+  navigate(gto: Group) {
+    this.groupToOpen = gto;
+    this.router.navigate(['/group']);
   }
 
 }

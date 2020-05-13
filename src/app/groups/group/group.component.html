@@ -1,1 +1,9 @@
-<p>group works!</p>
+<h1 fxLayoutAlign="center center">{{this.groupsService.groupToOpen.name}}</h1>
+<div>
+
+  <mat-card class="card" *ngFor="let post of this.posts">
+    <mat-card-content class="card-content">
+      {{post}}
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -28,6 +28,7 @@ export class SignupComponent implements OnInit {
     this.isCorrect();
     if (!this.correctEmail) {
       form.reset();
+      this.correctEmail = true;
     }
 
     this.notifier.notify('Success', 'Succesful registration', 'registerNoti');
