@@ -12,6 +12,7 @@ import {Router} from '@angular/router';
 export class GroupsService {
   groups: Group[] = [];
   myGroups: Group[] = [];
+  users: string[] = [];
   private readonly notifier: NotifierService;
   groupToOpen: Group;
   subs: Subscription;
@@ -42,6 +43,9 @@ export class GroupsService {
     this.router.navigate(['/group']);
   }
 
-  // TODO: getMyGroups function es getMyPosts a profilhoz maybe IDE KENE
+  getUsers(g: Group) {
+    this.users = g.users;
+  }
+
 
 }

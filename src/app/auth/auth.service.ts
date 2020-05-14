@@ -6,16 +6,17 @@ import {Subject} from 'rxjs/Subject';
 import {FirebaseService} from '../firebase.service';
 import {Subscription} from 'rxjs/Subscription';
 import {Group} from '../groups/group.model';
+import {Post} from '../feed/post.model';
 
 @Injectable()
 export class AuthService implements OnDestroy {
-  // erdemes a tipust atirni majd
   authChange = new Subject<boolean>();
   private user: User;
   subs: Subscription;
   correctMail: string = '';
   correctPsw: string = '';
   myGroups: Group[] = [];
+  myPosts: Post[] = [];
 
   constructor(public router: Router, private firebaseService: FirebaseService) {
   }
@@ -67,7 +68,7 @@ export class AuthService implements OnDestroy {
   logout() {
     this.user = null;
     this.authChange.next(false);
-    this.router.navigate(['/']); // vissza a welcome componentre
+    this.router.navigate(['/']);
   }
 
   getUser() {
@@ -82,10 +83,21 @@ export class AuthService implements OnDestroy {
     this.subs = this.firebaseService.getGroups().subscribe(data => {
       this.myGroups = [];
       for (const g of data) {
-        for (const p of g.users) {
-          if (p === this.getUser().email) {
+        for (const u of g.users) {
+          if (u === this.getUser().email) {
             this.myGroups.push(g);
           }
+        }
+      }
+    });
+  }
+
+  getMyPosts() {
+    this.subs = this.firebaseService.getPosts().subscribe(data => {
+      this.myPosts = [];
+      for (const p of data) {
+        if (p.username === this.getUser().email) {
+          this.myPosts.push(p);
         }
       }
     });

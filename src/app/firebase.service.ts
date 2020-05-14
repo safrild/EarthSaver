@@ -27,7 +27,7 @@ export class FirebaseService {
     return this.afs.collection('Posts').add(post);
   }
 
-  getPosts(): Observable<any> {
+  getPosts() {
     return this.afs.collection<Post>('Posts').valueChanges();
   }
 

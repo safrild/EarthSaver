@@ -38,15 +38,14 @@ export class ProfileComponent implements OnInit {
     this.getProfiles();
   }
 
-  // TODO: csoportok es posztok hozzarakasa = KURVA szar
+  // TODO:  posztok hozzarakasa = KURVA szar
   addProfile(p: Profile) {
-    this.feedService.getMyPosts();
     const profile: Profile = {
       id: this.authService.getUser().email,
       bio: p.bio,
       age: p.age,
       hobbies: p.hobbies,
-      posts: this.feedService.myPosts,
+      posts: [],
       groups: this.groupsService.myGroups
     };
     this.firebaseService.addProfile(profile);
@@ -72,5 +71,6 @@ export class ProfileComponent implements OnInit {
       }
     });
   }
+
 
 }

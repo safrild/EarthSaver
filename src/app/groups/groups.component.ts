@@ -6,6 +6,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {NotifierService} from 'angular-notifier';
 import {GroupsService} from './groups.service';
 import {FirebaseService} from '../firebase.service';
+import {log} from 'util';
 
 @Component({
   selector: 'app-groups',
@@ -13,13 +14,14 @@ import {FirebaseService} from '../firebase.service';
   styleUrls: ['./groups.component.css']
 })
 export class GroupsComponent implements OnInit, OnDestroy {
-  subs: Subscription;
   isAuth = false;
   authSubscription: Subscription;
   groups: Group[] = [];
   groupForm: FormGroup;
   private readonly notifier: NotifierService;
   newgroup = false;
+  subs: Subscription;
+
 
   constructor(private authService: AuthService, private groupService: GroupsService, notifierService: NotifierService,
               private firebaseService: FirebaseService) {
@@ -40,6 +42,7 @@ export class GroupsComponent implements OnInit, OnDestroy {
       })
     });
     this.getGroups();
+    // this.getMyGroups();
   }
 
   getGroups() {
@@ -50,6 +53,7 @@ export class GroupsComponent implements OnInit, OnDestroy {
       }
     });
   }
+
 
   onSubmit() {
     this.groupService.addGroup({
@@ -64,7 +68,6 @@ export class GroupsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subs.unsubscribe();
     this.authSubscription.unsubscribe();
     this.groups = [];
   }
@@ -76,4 +79,5 @@ export class GroupsComponent implements OnInit, OnDestroy {
   amIIn(g: Group) {
     return g.users.includes(this.authService.getUser().email);
   }
+
 }

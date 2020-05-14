@@ -32,6 +32,7 @@ export class GroupComponent implements OnInit, OnDestroy {
       })
     });
     this.getPosts();
+    this.groupsService.getUsers(this.thisgroup);
   }
 
   onSubmit() {
@@ -52,6 +53,8 @@ export class GroupComponent implements OnInit, OnDestroy {
       }
     });
   }
+
+
 
   ngOnDestroy(): void {
     this.subs.unsubscribe();

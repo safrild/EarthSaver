@@ -14,18 +14,20 @@ export class FeedComponent implements OnInit, OnDestroy {
   isAuth = false;
   authSubscription: Subscription;
   posts: Post[] = [];
+  myPosts: Post[] = [];
   subs: Subscription;
 
   constructor(private authService: AuthService, private feedService: FeedService, private firebaseService: FirebaseService) {
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.posts = [];
     this.authSubscription = this.authService.authChange.subscribe(authStatus => {
       this.isAuth = authStatus;
     });
     this.getPosts();
-    this.authService.getMyGroups();
+    await this.authService.getMyGroups();
+    await this.authService.getMyPosts();
   }
 
   // TODO: kattinthato posztok, profilmegtekintes innen
@@ -40,9 +42,9 @@ export class FeedComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.authSubscription.unsubscribe();
-    this.subs.unsubscribe();
     this.posts = [];
   }
+
 
 }
 
