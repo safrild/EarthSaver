@@ -14,10 +14,9 @@ export class FeedComponent implements OnInit, OnDestroy {
   isAuth = false;
   authSubscription: Subscription;
   posts: Post[] = [];
-  myPosts: Post[] = [];
   subs: Subscription;
 
-  constructor(private authService: AuthService, private feedService: FeedService, private firebaseService: FirebaseService) {
+  constructor(private authService: AuthService, private firebaseService: FirebaseService) {
   }
 
   async ngOnInit() {
@@ -30,7 +29,7 @@ export class FeedComponent implements OnInit, OnDestroy {
     await this.authService.getMyPosts();
   }
 
-  // TODO: kattinthato posztok, profilmegtekintes innen
+  // TODO: kattinthato posztok, hogy a profilra vigyenek
   getPosts() {
     this.subs = this.firebaseService.getPosts().subscribe(data => {
       this.posts = [];

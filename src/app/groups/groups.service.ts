@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {NotifierService} from 'angular-notifier';
 import {Group} from './group.model';
-import {Subscription} from 'rxjs/Subscription';
 import {AuthService} from '../auth/auth.service';
 import {FirebaseService} from '../firebase.service';
 import {Router} from '@angular/router';
@@ -15,7 +14,6 @@ export class GroupsService {
   users: string[] = [];
   private readonly notifier: NotifierService;
   groupToOpen: Group;
-  subs: Subscription;
 
   constructor(private authService: AuthService, private firebaseService: FirebaseService, notifierService: NotifierService,
               public router: Router) {

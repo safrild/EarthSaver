@@ -1,6 +1,25 @@
 <h1 fxLayoutAlign="center center">Your profile</h1>
-<section>
-  <!--  <button>Update your profile</button>-->
+
+<div fxLayout="column" fxLayoutAlign="space-evenly center" *ngIf="this.myProfile !== undefined; else fillItOut">
+  <h3>E-mail: {{this.authService.getUser().email}}</h3>
+  <h3>Biography: {{this.myProfile.bio}}</h3>
+  <h3>Age: {{this.myProfile.age}}</h3>
+  <h3>Hobbies: {{this.myProfile.hobbies}}</h3>
+</div>
+
+<ng-template #fillItOut>
+  <div fxLayout="column" fxLayoutAlign="space-evenly center">
+    <h3>You haven't finished your profile yet.</h3>
+    <h3>Click on the button below to add your personal data!</h3>
+  </div>
+</ng-template>
+
+
+<button fxLayoutAlign="center center" type="submit" class="updatebtn" (click)="toUpdateProfile()" mat-raised-button
+        color="primary">Update my profile
+</button>
+
+<section *ngIf="updateProfile">
   <form
     fxLayout="column"
     fxLayoutAlign="space-evenly center"
@@ -29,7 +48,8 @@
         placeholder="Hobbies"
         formControlName="hobbies">
     </mat-form-field>
-    <button type="submit" mat-raised-button color="primary" [disabled]="profileForm.invalid">Update profile</button>
+    <button type="submit" mat-raised-button color="primary" [disabled]="profileForm.invalid">Update</button>
+    <button (click)="this.updateProfile = false;" mat-raised-button color="warn">Cancel</button>
   </form>
 </section>
 

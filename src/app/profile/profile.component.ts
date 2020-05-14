@@ -16,8 +16,8 @@ export class ProfileComponent implements OnInit {
   profileForm: FormGroup;
   subs: Subscription;
   profiles: Profile[];
-
-  // TODO: MINDEN
+  myProfile: Profile;
+  updateProfile = false;
 
   constructor(private firebaseService: FirebaseService, private groupsService: GroupsService, private feedService: FeedService,
               private authService: AuthService) {
@@ -38,7 +38,6 @@ export class ProfileComponent implements OnInit {
     this.getProfiles();
   }
 
-  // TODO:  posztok hozzarakasa = KURVA szar
   addProfile(p: Profile) {
     const profile: Profile = {
       id: this.authService.getUser().email,
@@ -53,7 +52,7 @@ export class ProfileComponent implements OnInit {
 
   onSubmit() {
     this.addProfile({
-      id: '',
+      id: this.authService.getUser().email,
       bio: this.profileForm.value.bio,
       age: this.profileForm.value.age,
       hobbies: this.profileForm.value.hobbies,
@@ -68,8 +67,17 @@ export class ProfileComponent implements OnInit {
       this.profiles = [];
       for (const p of data) {
         this.profiles.push(p);
+        if (p.id === this.authService.getUser().email) {
+          this.myProfile = p;
+          console.log(this.myProfile);
+        }
       }
     });
+  }
+
+
+  toUpdateProfile() {
+    this.updateProfile = true;
   }
 
 

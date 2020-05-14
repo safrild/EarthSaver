@@ -6,7 +6,6 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {NotifierService} from 'angular-notifier';
 import {GroupsService} from './groups.service';
 import {FirebaseService} from '../firebase.service';
-import {log} from 'util';
 
 @Component({
   selector: 'app-groups',
