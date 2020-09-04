@@ -19,8 +19,8 @@ export class ProfileComponent implements OnInit {
   myProfile: Profile;
   updateProfile = false;
 
-  constructor(private firebaseService: FirebaseService, private groupsService: GroupsService, private feedService: FeedService,
-              private authService: AuthService) {
+  constructor(public firebaseService: FirebaseService, public groupsService: GroupsService, private feedService: FeedService,
+              public authService: AuthService) {
   }
 
   ngOnInit() {
@@ -69,7 +69,6 @@ export class ProfileComponent implements OnInit {
         this.profiles.push(p);
         if (p.id === this.authService.getUser().email) {
           this.myProfile = p;
-          console.log(this.myProfile);
         }
       }
     });

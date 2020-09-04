@@ -19,7 +19,7 @@ export class GroupComponent implements OnInit, OnDestroy {
   postForm: FormGroup;
   private readonly notifier: NotifierService;
 
-  constructor(private firebaseService: FirebaseService, private groupsService: GroupsService, private authService: AuthService,
+  constructor(private firebaseService: FirebaseService, public groupsService: GroupsService, private authService: AuthService,
               notifierService: NotifierService) {
     this.thisgroup = this.groupsService.groupToOpen;
     this.notifier = notifierService;

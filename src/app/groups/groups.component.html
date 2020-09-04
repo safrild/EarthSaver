@@ -41,7 +41,7 @@
     </notifier-container>
     <mat-card class="card" *ngFor="let group of this.groups">
       <mat-card-header class="card-header">
-        <button *ngIf="amIIn(group); else notAMember" class="btn" mat-raised-button color="primary"
+        <button *ngIf="amIIn(group); else notAMember" class="btn" mat-raised-button color="basic"
                 (click)="this.groupService.navigate(group)">
           <mat-card-title class="card-header-title">{{group.name}}</mat-card-title>
         </button>
